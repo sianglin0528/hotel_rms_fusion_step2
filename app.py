@@ -7,6 +7,15 @@ from utils.decision_engine import generate_ai_suggestion
 from utils.rag_module import generate_rag_answer
 from crawler_pipeline import fetch_competitors_data
 
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # 當前檔案所在資料夾
+input_dir = os.path.join(os.path.dirname(__file__), "data", "rag_docs") # 指向 data/rag_docs
+
+files = [f for f in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, f))]
+if len(files) == 0:
+    raise ValueError(f"No files found in {input_dir}. Found dirs: {os.listdir(os.path.join(BASE_DIR, '..', 'data'))}")
+
 
 st.set_page_config(page_title="🏨 飯店營運決策 AI 助理", layout="wide")
 st.title("🏨 飯店營運決策 AI 助理")

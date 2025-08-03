@@ -10,11 +10,11 @@ import re
 import datetime
 import pandas as pd
 import sqlite3
-from llama_index.core import SimpleDirectoryReader
 
 # utils/rag_module.py
 from llama_index.core import SimpleDirectoryReader, VectorStoreIndex
 from llama_index.core.node_parser import SimpleNodeParser
+from llama_index.core.llms import ChatMessage
 from llama_index.llms.openai import OpenAI
 
 
@@ -22,38 +22,43 @@ from llama_index.llms.openai import OpenAI
 # 初始化 LLM
 llm = OpenAI(model="gpt-4o-mini", temperature=0)
 
-data_dir = "data/rag_docs"
-
-if not os.path.exists(data_dir):
-    os.makedirs(data_dir, exist_ok=True)
-    # 可以建立一個空檔避免報錯
-    with open(os.path.join(data_dir, "dummy.txt"), "w") as f:
-        f.write("init")
-
-documents = SimpleDirectoryReader(data_dir).load_data()
-
-
-
-def build_rag_index(data_dir="data"):
-    """讀取資料夾內 CSV/TXT 建立向量索引"""
-    documents = SimpleDirectoryReader(data_dir).load_data()
-    parser = SimpleNodeParser()
-    nodes = parser.get_nodes_from_documents(documents)
-    index = VectorStoreIndex(nodes)
-    return index
-
-# 建立 RAG Query Engine
-rag_index = build_rag_index()
-query_engine = rag_index.as_query_engine(llm=llm)
-
-def rag_answer(question: str):
-    """基本的內部資料問答"""
-    response = query_engine.query(question)
-    return str(response)
 
 # --- 新增 generate_rag_answer ---
 DB_PATH = "database/hotel_data.db"
 FUTURE_PRED_PATH = "models/future_prediction.csv"
+
+def rag_answer(question: str, data_path: str = "./data") -> str:
+    """
+    使用 LlamaIndex 做簡單 RAG 問答
+    """
+    # 讀取資料夾內文件
+    documents = SimpleDirectoryReader(data_path).load_data()
+    
+    # 解析成節點
+    parser = SimpleNodeParser()
+    nodes = parser.get_nodes_from_documents(documents)
+    
+    # 建立索引
+    index = VectorStoreIndex(nodes)
+    
+    # 建立查詢引擎
+    query_engine = index.as_query_engine(llm=llm)
+    
+    # 回答問題
+    response = query_engine.query(question)
+    
+    return str(response)
+
+
+
+def build_rag_index(data_dir="data/rag_docs"):
+    documents = load_documents(data_dir)
+    if not documents:
+        print("⚠️ 沒有文件可供建立索引，返回空索引")
+        return None
+    return VectorStoreIndex.from_documents(documents)
+
+
 
 def generate_rag_answer(user_question: str, context: dict = None):
     """
