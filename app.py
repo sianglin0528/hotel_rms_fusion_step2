@@ -8,7 +8,7 @@ from utils.rag_module import generate_rag_answer
 from crawler_pipeline import fetch_competitors_data
 
 import os
-
+import tempfile
 # 🔹 DB 存在暫存目錄，雲端重啟會重建
 DB_PATH = os.path.join(tempfile.gettempdir(), "hotel_data.db")
 
@@ -24,7 +24,7 @@ st.set_page_config(page_title="🏨 飯店營運決策 AI 助理", layout="wide"
 st.title("🏨 飯店營運決策 AI 助理")
 st.caption("CSV 上傳 → ETL → RF + XGB 多模型預測 → AI 問答")
 
-DB_PATH = 'database/hotel_data.db'
+DB_PATH = os.path.join(tempfile.gettempdir(), "hotel_data.db")
 
 # ================= 上傳飯店資料 =================
 uploaded_file = st.file_uploader("📂 上傳飯店營運資料 [CSV]", type="csv")
