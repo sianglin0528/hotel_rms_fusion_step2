@@ -90,7 +90,6 @@ if user_question:
 
 
 
-
 st.subheader("🏨 競品即時價格")
 comp_df = fetch_competitors_data()
 st.dataframe(comp_df)

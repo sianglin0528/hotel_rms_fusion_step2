@@ -97,6 +97,7 @@ def predict_future(days=7):
     print("📄 未來預測結果已存到 models/future_prediction.csv")
     print(future_df[['date', 'pred_occupancy_rate', 'pred_room_sold']])
 
+
 if __name__ == "__main__":
     train_models()
     predict_future(days=7)
