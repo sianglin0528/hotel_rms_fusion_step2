@@ -1,0 +1,7 @@
+hotel_name,date,price,room_type
+Hotel A,20250803,3500,Deluxe
+Hotel B,20250803,3800,Standard
+Hotel C,20250803,3200,Suite
+Hotel A,20250804,3600,Deluxe
+Hotel B,20250804,3900,Standard
+Hotel C,20250804,3100,Suite
