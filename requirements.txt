@@ -1,0 +1,14 @@
+scikit-learn
+xgboost
+pandas
+numpy
+matplotlib
+streamlit
+sqlalchemy
+prophet
+langchain
+llama-index
+openai
+llama-index
+faiss-cpu
+tiktoken

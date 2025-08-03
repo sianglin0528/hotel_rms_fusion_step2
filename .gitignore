@@ -1,0 +1,17 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Database & Model Files
+database/
+models/*.pkl
+
+# Local CSV Data
+data/*.csv
+
+# Env file
+.env
+
+# System / Temp Files
+.DS_Store
+*.log
