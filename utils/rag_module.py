@@ -16,6 +16,12 @@ from llama_index.core import SimpleDirectoryReader, VectorStoreIndex
 from llama_index.core.node_parser import SimpleNodeParser
 from llama_index.core.llms import ChatMessage
 from llama_index.llms.openai import OpenAI
+from llama_index.core import Settings
+from llama_index.embeddings.openai import OpenAIEmbedding
+
+# 指定 OpenAI embedding 模型
+Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")
+
 
 
 
