@@ -9,6 +9,9 @@ from crawler_pipeline import fetch_competitors_data
 
 import os
 
+# 🔹 DB 存在暫存目錄，雲端重啟會重建
+DB_PATH = os.path.join(tempfile.gettempdir(), "hotel_data.db")
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # 當前檔案所在資料夾
 input_dir = os.path.join(os.path.dirname(__file__), "data", "rag_docs") # 指向 data/rag_docs
 
