@@ -10,6 +10,7 @@ import re
 import datetime
 import pandas as pd
 import sqlite3
+from llama_index.core import SimpleDirectoryReader
 
 # utils/rag_module.py
 from llama_index.core import SimpleDirectoryReader, VectorStoreIndex
@@ -18,9 +19,20 @@ from llama_index.llms.openai import OpenAI
 
 
 
-
 # 初始化 LLM
 llm = OpenAI(model="gpt-4o-mini", temperature=0)
+
+data_dir = "data/rag_docs"
+
+if not os.path.exists(data_dir):
+    os.makedirs(data_dir, exist_ok=True)
+    # 可以建立一個空檔避免報錯
+    with open(os.path.join(data_dir, "dummy.txt"), "w") as f:
+        f.write("init")
+
+documents = SimpleDirectoryReader(data_dir).load_data()
+
+
 
 def build_rag_index(data_dir="data"):
     """讀取資料夾內 CSV/TXT 建立向量索引"""
