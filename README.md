@@ -86,6 +86,7 @@ streamlit run app.py
 
 ## 📬 聯絡方式
 
-- **作者**：香琳  
-- **Email**：your_email@example.com  
-- **LinkedIn / GitHub**：your_profile_link  
+- **作者**：SiangLin.H  
+- **Email**：aliciahsu7@gmail.com  
+- **LinkedIn**：https://www.linkedin.com/in/sianglin-hsu-13b635b6/
+- **Demo Streamlit**:https://hotelrms0803.streamlit.app/
